@@ -52,4 +52,16 @@ public class TDDHomework1Test {
         });
     }
     
+    @Test
+    @DisplayName("Given伪造票 when取包 then取包失败，提示该票已使用，无效")
+    public void should_throw_exception_when_ticket_used_for_locker() {
+        Ticket ticket = new Ticket(TicketTypes.FORGED_TICKET);
+        Locker locker = new Locker();
+        
+        Assert.assertThrows(LockerException.class, () -> {
+            locker.getBag(ticket);
+            new LockerException("该票已使用，无效");
+        });
+    }
+    
 }
