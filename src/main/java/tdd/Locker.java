@@ -1,15 +1,12 @@
 package tdd;
 
 public class Locker {
-    private Ticket ticket;
     private boolean empty;
-
-    public Locker(Ticket ticket) {
-        this.ticket = ticket;
+    
+    public Locker() {
     }
-
-    public Locker(Ticket ticket, boolean emptyFlag) {
-        this.ticket = ticket;
+    
+    public Locker( boolean emptyFlag) {
         this.empty = emptyFlag;
     }
     
@@ -17,16 +14,25 @@ public class Locker {
         return empty;
     }
     
-    public Ticket getTicket() {
-        return this.ticket;
-    }
-    
     public boolean store() throws LockerException {
         if (empty) return true;
         else throw new LockerException("存包失败 提示储物柜已满");
     }
-
-    public boolean checkTicket() {
-        return this.ticket.getTicketType().equals(TicketTypes.VALID_TICKET);
+    
+    private boolean checkTicket(Ticket ticket) throws LockerException {
+        switch (ticket.getTicketType()) {
+            case VALID_TICKET:
+                return true;
+            case FORGED_TICKET:
+                throw new LockerException("该票为伪造，无效");
+            case USED_TICKET:
+                throw new LockerException("该票已使用，无效");
+            default:
+                return false;
+        }
+    }
+    
+    public boolean getBag(Ticket ticket) throws LockerException {
+        return checkTicket(ticket);
     }
 }
