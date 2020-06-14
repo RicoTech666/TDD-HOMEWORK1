@@ -3,6 +3,8 @@ package tdd;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
+import java.util.Arrays;
+import java.util.List;
 
 public class TDDHomework1Test {
 
@@ -17,7 +19,6 @@ public class TDDHomework1Test {
         Assert.assertTrue(locker.hasEmptyCapacity());
         Assert.assertEquals(ticket.getTicketType(), locker.store().getTicketType());
         Assert.assertEquals(ticket, locker.getTicket());
-
     }
 
     @Test
@@ -68,4 +69,18 @@ public class TDDHomework1Test {
         });
     }
 
+    @Test
+    @DisplayName("Given 两个柜子被机器人管理，且都不满 when 让机器人存包 then 存包成功，返回票据")
+    public void should_return_ticket_when_robot_store_package_given_two_locker_have_capacity() {
+        List<Locker> lockers = Arrays.asList(new Locker(10,5),new Locker(8,0));
+        PrimitiveRobot primitiveRobot = new PrimitiveRobot(lockers);
+        Bag bag = new Bag();
+        Locker lockerUsed = primitiveRobot.getUsedLocker();
+        Ticket ticket = primitiveRobot.store();
+
+        Assert.assertNotNull(ticket);
+        Assert.assertEquals(ticket.getTicketType(),TicketTypes.VALID_TICKET);
+        Assert.assertNotNull(lockerUsed);
+        Assert.assertEquals(lockerUsed, lockers.get(0));
+    }
 }

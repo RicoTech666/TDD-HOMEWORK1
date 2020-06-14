@@ -8,6 +8,11 @@ public class Locker {
     public Locker() {
     }
 
+    public Locker(int capacity, int currentUsedCapacity) {
+        this.capacity = capacity;
+        this.currentUsedCapacity = currentUsedCapacity;
+    }
+
     public Locker(Ticket ticket, int capacity, int currentUsedCapacity) {
         this.ticket = ticket;
         this.capacity = capacity;
