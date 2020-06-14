@@ -9,16 +9,16 @@ public class PrimitiveRobot {
         this.lockers = lockers;
     }
 
-    public Locker getUsedLocker() {
+    public Locker getUsedLocker() throws LockerException {
         for (Locker locker : lockers) {
             if (locker.hasEmptyCapacity()) {
                 return locker;
             }
         }
-        return null;
+       throw new LockerException("存包失败，所有储物柜已满");
     }
 
-    public Ticket store() {
+    public Ticket store() throws LockerException {
         if(getUsedLocker() != null) {
             return new Ticket(TicketTypes.VALID_TICKET);
         }
