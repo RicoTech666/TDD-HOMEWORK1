@@ -130,4 +130,17 @@ public class TDDHomework1Test {
             new LockerException("该票为伪造，无效");
         });
     }
+
+    @Test
+    @DisplayName("Given 两个柜子被机器人管理, when 给机器人已使用的票 then 取包失败，提示票已使用，无效")
+    public void should_throw_exception_when_robot_get_package_given_used_ticket() throws LockerException {
+        List<Locker> lockers = Arrays.asList(new Locker(10,10),new Locker(8,0));
+        PrimitiveRobot primitiveRobot = new PrimitiveRobot(lockers);
+        Ticket ticket = new Ticket(TicketTypes.USED_TICKET);
+
+        Assert.assertThrows(LockerException.class, () -> {
+            primitiveRobot.getBag(ticket);
+            new LockerException("该票已使用，无效");
+        });
+    }
 }
