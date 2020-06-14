@@ -9,7 +9,7 @@ public class PrimitiveRobot {
         this.lockers = lockers;
     }
 
-    public Locker getUsedLocker() throws LockerException {
+    public Locker getUsedLockerForStore() throws LockerException {
         for (Locker locker : lockers) {
             if (locker.hasEmptyCapacity()) {
                 return locker;
@@ -19,9 +19,13 @@ public class PrimitiveRobot {
     }
 
     public Ticket store() throws LockerException {
-        if(getUsedLocker() != null) {
+        if(getUsedLockerForStore() != null) {
             return new Ticket(TicketTypes.VALID_TICKET);
         }
         return null;
+    }
+
+    public Bag getBag(Ticket ticket) throws LockerException {
+       return this.lockers.get(0).getBag(ticket);
     }
 }

@@ -73,7 +73,7 @@ public class TDDHomework1Test {
     public void should_return_ticket_when_robot_store_package_given_two_locker_have_capacity() throws LockerException {
         List<Locker> lockers = Arrays.asList(new Locker(10,5),new Locker(8,0));
         PrimitiveRobot primitiveRobot = new PrimitiveRobot(lockers);
-        Locker lockerUsed = primitiveRobot.getUsedLocker();
+        Locker lockerUsed = primitiveRobot.getUsedLockerForStore();
         Ticket ticket = primitiveRobot.store();
 
         Assert.assertNotNull(ticket);
@@ -87,7 +87,7 @@ public class TDDHomework1Test {
     public void should_return_ticket_when_robot_store_package_given_one_locker_full_and_one_locker_have_capacity() throws LockerException {
         List<Locker> lockers = Arrays.asList(new Locker(10,10),new Locker(8,0));
         PrimitiveRobot primitiveRobot = new PrimitiveRobot(lockers);
-        Locker lockerUsed = primitiveRobot.getUsedLocker();
+        Locker lockerUsed = primitiveRobot.getUsedLockerForStore();
         Ticket ticket = primitiveRobot.store();
 
         Assert.assertNotNull(ticket);
@@ -106,5 +106,15 @@ public class TDDHomework1Test {
             primitiveRobot.store();
             new LockerException("存包失败，所有储物柜已满");
         });
+    }
+
+    @Test
+    @DisplayName("Given 两个柜子被机器人管理，when 给机器人有效票 then 取包成功")
+    public void should_return_bag_when_robot_get_package_given_valid_ticket() throws LockerException {
+        List<Locker> lockers = Arrays.asList(new Locker(10,10),new Locker(8,0));
+        PrimitiveRobot primitiveRobot = new PrimitiveRobot(lockers);
+        Ticket ticket = new Ticket(TicketTypes.VALID_TICKET);
+
+        Assert.assertNotNull(primitiveRobot.getBag(ticket));
     }
 }
