@@ -95,4 +95,16 @@ public class TDDHomework1Test {
         Assert.assertNotNull(lockerUsed);
         Assert.assertEquals(lockerUsed, lockers.get(1));
     }
+
+    @Test
+    @DisplayName("Given 两个柜子被机器人管理，且都满了 when 让机器人存包 then 存包失败，提示储物柜都已满")
+    public void should_throw_exception_when_robot_store_package_given_two_lockers_both_have_no_capacity() throws LockerException {
+        List<Locker> lockers = Arrays.asList(new Locker(10,10),new Locker(8,8));
+        PrimitiveRobot primitiveRobot = new PrimitiveRobot(lockers);
+
+        Assert.assertThrows(LockerException.class, () -> {
+            primitiveRobot.store();
+            new LockerException("存包失败，所有储物柜已满");
+        });
+    }
 }
