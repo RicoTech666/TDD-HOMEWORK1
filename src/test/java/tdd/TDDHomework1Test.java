@@ -117,4 +117,17 @@ public class TDDHomework1Test {
 
         Assert.assertNotNull(primitiveRobot.getBag(ticket));
     }
+
+    @Test
+    @DisplayName("Given 两个柜子被机器人管理, when 给机器人伪造票 then 取包失败，提示票无效")
+    public void should_throw_exception_when_robot_get_package_given_forged_ticket() throws LockerException {
+        List<Locker> lockers = Arrays.asList(new Locker(10,10),new Locker(8,0));
+        PrimitiveRobot primitiveRobot = new PrimitiveRobot(lockers);
+        Ticket ticket = new Ticket(TicketTypes.FORGED_TICKET);
+
+        Assert.assertThrows(LockerException.class, () -> {
+            primitiveRobot.getBag(ticket);
+            new LockerException("该票为伪造，无效");
+        });
+    }
 }
