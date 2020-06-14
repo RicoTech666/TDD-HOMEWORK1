@@ -1,24 +1,36 @@
 package tdd;
 
 public class Locker {
-    private boolean empty;
-    
+    private Ticket ticket;
+    private int capacity;
+    private int currentUsedCapacity;
+
     public Locker() {
     }
-    
-    public Locker( boolean emptyFlag) {
-        this.empty = emptyFlag;
+
+    public Locker(Ticket ticket, int capacity, int currentUsedCapacity) {
+        this.ticket = ticket;
+        this.capacity = capacity;
+        this.currentUsedCapacity = currentUsedCapacity;
     }
-    
-    public boolean isEmpty() {
-        return empty;
+
+    public boolean hasEmptyCapacity() {
+        return capacity > currentUsedCapacity;
     }
-    
-    public boolean store() throws LockerException {
-        if (empty) return true;
+
+    public Ticket getTicket() {
+        return this.ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public Ticket store() throws LockerException {
+        if (hasEmptyCapacity()) return new Ticket(TicketTypes.VALID_TICKET);
         else throw new LockerException("存包失败 提示储物柜已满");
     }
-    
+
     private boolean checkTicket(Ticket ticket) throws LockerException {
         switch (ticket.getTicketType()) {
             case VALID_TICKET:
@@ -31,8 +43,12 @@ public class Locker {
                 return false;
         }
     }
-    
-    public boolean getBag(Ticket ticket) throws LockerException {
-        return checkTicket(ticket);
+
+    public Bag getBag(Ticket ticket) throws LockerException {
+        setTicket(ticket);
+        if (this.checkTicket(this.ticket)) {
+            return new Bag();
+        }
+        return null;
     }
 }
