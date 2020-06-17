@@ -19,15 +19,15 @@ public class Locker {
         this.currentUsedCapacity = currentUsedCapacity;
     }
 
-    public boolean hasEmptyCapacity() {
+    boolean hasEmptyCapacity() {
         return capacity > currentUsedCapacity;
     }
 
-    public Ticket getTicket() {
+    Ticket getTicket() {
         return this.ticket;
     }
 
-    public void setTicket(Ticket ticket) {
+    private void setTicket(Ticket ticket) {
         this.ticket = ticket;
     }
 
