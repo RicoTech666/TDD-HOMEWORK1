@@ -1,59 +1,44 @@
 package tdd;
 
+import lombok.Data;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@Data
 public class Locker {
-    private Ticket ticket;
     private int capacity;
     private int currentUsedCapacity;
-
-    public Locker() {
-    }
-
+    private Map<Integer, Bag> bagMap = new HashMap();
+    
     public Locker(int capacity, int currentUsedCapacity) {
         this.capacity = capacity;
         this.currentUsedCapacity = currentUsedCapacity;
     }
-
-    public Locker(Ticket ticket, int capacity, int currentUsedCapacity) {
-        this.ticket = ticket;
-        this.capacity = capacity;
-        this.currentUsedCapacity = currentUsedCapacity;
-    }
-
+    
     boolean hasEmptyCapacity() {
         return capacity > currentUsedCapacity;
     }
-
-    Ticket getTicket() {
-        return this.ticket;
+    
+    public boolean store(Bag bag) throws LockerException {
+        if (hasEmptyCapacity()) {
+            bagMap.put(bag.getId(), bag);
+            return true;
+        } else throw new LockerException("存包失败 提示储物柜已满");
     }
-
-    private void setTicket(Ticket ticket) {
-        this.ticket = ticket;
-    }
-
-    public Ticket store() throws LockerException {
-        if (hasEmptyCapacity()) return new Ticket(TicketTypes.VALID_TICKET);
-        else throw new LockerException("存包失败 提示储物柜已满");
-    }
-
+    
     private boolean checkTicket(Ticket ticket) throws LockerException {
         switch (ticket.getTicketType()) {
             case VALID_TICKET:
                 return true;
             case FORGED_TICKET:
                 throw new LockerException("该票为伪造，无效");
-            case USED_TICKET:
-                throw new LockerException("该票已使用，无效");
             default:
                 return false;
         }
     }
-
+    
     public Bag getBag(Ticket ticket) throws LockerException {
-        setTicket(ticket);
-        if (this.checkTicket(this.ticket)) {
-            return new Bag();
-        }
-        return null;
+        return checkTicket(ticket) ? bagMap.get(ticket.getBagNumber()) : null;
     }
 }
