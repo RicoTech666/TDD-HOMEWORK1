@@ -14,3 +14,43 @@ Tasking--Homework2
 - Given 两个柜子被机器人管理，when 给机器人有效票 then 取包成功
 - Given 两个柜子被机器人管理, when 给机器人伪造票 then 取包失败，提示票为伪造，无效
 - Given 两个柜子被机器人管理, when 给机器人已使用的票 then 取包失败，提示票已使用，无效
+
+
+
+Tasking--Homework3
+
+- Given：SmartLockerRobot 管理Locker1，Locker2，Locker1 剩余容量  > Locker2 剩余容量
+  When：SmartLockerRobot存包
+  Then：返回ticket，成功存入Locker1
+
+- Given：SmartLockerRobot 管理Locker1，Locker2，Locker1 剩余容量  < Locker2 剩余容量
+  When：SmartLockerRobot存包
+  Then：返回ticket，成功存入Locker2
+
+- Given：SmartLockerRobot 管理Locker1，Locker2，Locker1 剩余容量  < Locker2 剩余容量
+  When：SmartLockerRobot存包
+  Then：返回ticket，成功存入Locker2
+
+- Given：SmartLockerRobot 管理Locker1，Locker2，Locker1 剩余容量  = Locker2 剩余容量
+  When：SmartLockerRobot存包
+  Then：返回ticket，成功存入Locker1
+
+- Given：SmartLockerRobot 管理Locker1，Locker2，Locker1 ，Locker2 剩余容量 为 0
+  When：SmartLockerRobot存包
+  Then：存包失败，
+
+- Given：SmartLockerRobot 管理Locker1，Locker2，有一张有效ticket
+  When：SmartLockerRobot取包
+  Then：成功取出原有的包，
+
+- Given：SmartLockerRobot 管理Locker1，Locker2，有一张无效ticket
+  When：SmartLockerRobot取包
+  Then：取包失败，无效票
+
+- Given：SmartLockerRobot  PrimitiveLockerRobot 同时 管理Locker1，Locker2 ,有效票
+  When：SmartLockerRobot存包 ，PrimitiveLockerRobot 取包
+  Then： 成功取出原有的包，
+
+- Given：SmartLockerRobot  PrimitiveLockerRobot 同时 管理Locker1，Locker2 ,有效票
+  When：PrimitiveLockerRobot存包 ，SmartLockerRobot 取包
+  Then： 成功取出原有的包

@@ -7,11 +7,13 @@ import java.util.Map;
 
 @Data
 public class Locker {
+    private int id;
     private int capacity;
     private int currentUsedCapacity;
     private Map<Integer, Bag> bagMap = new HashMap();
     
-    public Locker(int capacity, int currentUsedCapacity) {
+    public Locker(int id, int capacity, int currentUsedCapacity) {
+        this.id = id;
         this.capacity = capacity;
         this.currentUsedCapacity = currentUsedCapacity;
     }
