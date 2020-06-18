@@ -19,4 +19,15 @@ public class SmartRobotTest {
         
         Assert.assertTrue(ticket.getBagNumber() == lockers.get(1).getBag(ticket).getId());
     }
+    
+    @Test
+    public void should_return_ticket_and_store_in_1st_locker_when_SmartLockerRobot_store_bag_given_two_lockers_have_same_leftover_capacity() throws LockerException {
+        List<Locker> lockers = Arrays.asList(new Locker(1, 10, 5), new Locker(2, 10, 5));
+        LockerRepo lockerRepo = new LockerRepo(lockers);
+        SmartLockerRobot primitiveLockerRobot = new SmartLockerRobot(lockerRepo);
+        Bag bag = new Bag(1);
+        Ticket ticket = primitiveLockerRobot.storeBagBySmartLockerRobot(bag);
+        
+        Assert.assertTrue(ticket.getBagNumber() == lockers.get(0).getBag(ticket).getId());
+    }
 }
