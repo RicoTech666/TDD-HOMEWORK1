@@ -39,6 +39,7 @@ public class SmartRobotTest {
         LockerRepo lockerRepo = new LockerRepo(lockers);
         SmartLockerRobot smartLockerRobot = new SmartLockerRobot(lockerRepo);
         Bag bag = new Bag(1);
+        
         Assertions.assertThrows(LockerException.class, () -> {
             smartLockerRobot.storeBagBySmartLockerRobot(bag);
         });
@@ -51,6 +52,7 @@ public class SmartRobotTest {
         SmartLockerRobot smartLockerRobot = new SmartLockerRobot(lockerRepo);
         Bag bag = new Bag(1);
         Ticket ticket = smartLockerRobot.storeBagBySmartLockerRobot(bag);
+        
         Assertions.assertTrue(bag.getId() == lockerRepo.getBag(ticket).getId());
     }
     
@@ -59,6 +61,7 @@ public class SmartRobotTest {
         List<Locker> lockers = Arrays.asList(new Locker(1, 10, 8), new Locker(2, 10, 10));
         LockerRepo lockerRepo = new LockerRepo(lockers);
         SmartLockerRobot smartLockerRobot = new SmartLockerRobot(lockerRepo);
+        
         Assertions.assertThrows(LockerException.class, () -> {
             smartLockerRobot.getBag(new Ticket(TicketTypes.FORGED_TICKET, -1, 8));
         });
@@ -69,10 +72,26 @@ public class SmartRobotTest {
         List<Locker> lockers = Arrays.asList(new Locker(1, 10, 8), new Locker(2, 10, 10));
         LockerRepo lockerRepo = new LockerRepo(lockers);
         SmartLockerRobot smartLockerRobot = new SmartLockerRobot(lockerRepo);
-        Bag bagStore = new Bag(1);
-        Ticket ticket = smartLockerRobot.storeBagBySmartLockerRobot(bagStore);
         PrimitiveLockerRobot primitiveLockerRobot = new PrimitiveLockerRobot(lockerRepo);
+        Bag bagStore = new Bag(1);
+        
+        Ticket ticket = smartLockerRobot.storeBagBySmartLockerRobot(bagStore);
         Bag bagGet = primitiveLockerRobot.getBag(ticket);
+        
+        Assertions.assertEquals(bagStore, bagGet);
+    }
+    
+    @Test
+    public void should_return_bag_when_PrimitiveLockerRobot_store_bag_and_SmartLockerRobot_get_bag_given_valid_ticket() throws LockerException {
+        List<Locker> lockers = Arrays.asList(new Locker(1, 10, 8), new Locker(2, 10, 10));
+        LockerRepo lockerRepo = new LockerRepo(lockers);
+        PrimitiveLockerRobot primitiveLockerRobot = new PrimitiveLockerRobot(lockerRepo);
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot(lockerRepo);
+        Bag bagStore = new Bag(1);
+        
+        Ticket ticket = primitiveLockerRobot.storeBagByPrimitiveLockerRobot(bagStore);
+        Bag bagGet = smartLockerRobot.getBag(ticket);
+        
         Assertions.assertEquals(bagStore, bagGet);
     }
 }
