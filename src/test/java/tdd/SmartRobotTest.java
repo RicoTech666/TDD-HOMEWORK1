@@ -52,4 +52,14 @@ public class SmartRobotTest {
         Ticket ticket = smartLockerRobot.storeBagBySmartLockerRobot(bag);
         Assertions.assertTrue(bag.getId() == lockerRepo.getBag(ticket).getId());
     }
+    
+    @Test
+    public void should_throw_exception_when_SmartLockerRobot_get_package_given_forged_ticket() throws LockerException {
+        List<Locker> lockers = Arrays.asList(new Locker(1, 10, 8), new Locker(2, 10, 10));
+        LockerRepo lockerRepo = new LockerRepo(lockers);
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot(lockerRepo);
+        Assertions.assertThrows(LockerException.class, () -> {
+            smartLockerRobot.getBag(new Ticket(TicketTypes.FORGED_TICKET, -1, 8));
+        });
+    }
 }
