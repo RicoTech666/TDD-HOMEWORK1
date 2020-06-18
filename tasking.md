@@ -27,10 +27,6 @@ Tasking--Homework3
   When：SmartLockerRobot存包
   Then：返回ticket，成功存入Locker2
 
-- Given：SmartLockerRobot 管理Locker1，Locker2，Locker1 剩余容量  < Locker2 剩余容量
-  When：SmartLockerRobot存包
-  Then：返回ticket，成功存入Locker2
-
 - Given：SmartLockerRobot 管理Locker1，Locker2，Locker1 剩余容量  = Locker2 剩余容量
   When：SmartLockerRobot存包
   Then：返回ticket，成功存入Locker1

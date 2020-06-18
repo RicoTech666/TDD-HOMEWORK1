@@ -1,4 +1,4 @@
-package tdd;
+package tdd.exception;
 
 /**
  * @author Gavin

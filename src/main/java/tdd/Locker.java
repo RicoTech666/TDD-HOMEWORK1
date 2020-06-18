@@ -1,6 +1,7 @@
 package tdd;
 
 import lombok.Data;
+import tdd.exception.LockerException;
 
 import java.util.HashMap;
 import java.util.Map;
