@@ -2,6 +2,7 @@ package tdd;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import tdd.exception.LockerException;
 import tdd.robot.SmartLockerRobot;
 
@@ -29,5 +30,16 @@ public class SmartRobotTest {
         Ticket ticket = primitiveLockerRobot.storeBagBySmartLockerRobot(bag);
         
         Assert.assertTrue(ticket.getBagNumber() == lockers.get(0).getBag(ticket).getId());
+    }
+    
+    @Test
+    public void should_throw_exception_when_SmartLockerRobot_store_package_given_two_lockers_both_have_no_capacity() throws LockerException {
+        List<Locker> lockers = Arrays.asList(new Locker(1, 10, 10), new Locker(2, 10, 10));
+        LockerRepo lockerRepo = new LockerRepo(lockers);
+        SmartLockerRobot primitiveLockerRobot = new SmartLockerRobot(lockerRepo);
+        Bag bag = new Bag(1);
+        Assertions.assertThrows(LockerException.class, () -> {
+            primitiveLockerRobot.storeBagBySmartLockerRobot(bag);
+        });
     }
 }
