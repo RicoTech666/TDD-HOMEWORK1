@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import tdd.exception.LockerException;
+import tdd.robot.PrimitiveLockerRobot;
 import tdd.robot.SmartLockerRobot;
 
 import java.util.Arrays;
@@ -61,5 +62,17 @@ public class SmartRobotTest {
         Assertions.assertThrows(LockerException.class, () -> {
             smartLockerRobot.getBag(new Ticket(TicketTypes.FORGED_TICKET, -1, 8));
         });
+    }
+    
+    @Test
+    public void should_return_bag_when_SmartLockerRobot_store_bag_and_PrimitiveLockerRobot_get_bag_given_valid_ticket() throws LockerException {
+        List<Locker> lockers = Arrays.asList(new Locker(1, 10, 8), new Locker(2, 10, 10));
+        LockerRepo lockerRepo = new LockerRepo(lockers);
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot(lockerRepo);
+        Bag bagStore = new Bag(1);
+        Ticket ticket = smartLockerRobot.storeBagBySmartLockerRobot(bagStore);
+        PrimitiveLockerRobot primitiveLockerRobot = new PrimitiveLockerRobot(lockerRepo);
+        Bag bagGet = primitiveLockerRobot.getBag(ticket);
+        Assertions.assertEquals(bagStore, bagGet);
     }
 }
