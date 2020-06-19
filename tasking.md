@@ -33,7 +33,7 @@ Tasking--Homework3
 
 - Given：SmartLockerRobot 管理Locker1，Locker2，Locker1 ，Locker2 剩余容量 为 0
   When：SmartLockerRobot存包
-  Then：存包失败，
+  Then：存包失败，提示locker已满，
 
 - Given：SmartLockerRobot 管理Locker1，Locker2，有一张有效ticket
   When：SmartLockerRobot取包

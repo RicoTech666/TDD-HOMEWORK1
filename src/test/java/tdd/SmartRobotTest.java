@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import tdd.exception.LockerException;
-import tdd.robot.PrimitiveLockerRobot;
+import tdd.robot.PrimaryLockerRobot;
 import tdd.robot.SmartLockerRobot;
 
 import java.util.Arrays;
@@ -72,11 +72,11 @@ public class SmartRobotTest {
         List<Locker> lockers = Arrays.asList(new Locker(1, 10, 8), new Locker(2, 10, 10));
         LockerRepo lockerRepo = new LockerRepo(lockers);
         SmartLockerRobot smartLockerRobot = new SmartLockerRobot(lockerRepo);
-        PrimitiveLockerRobot primitiveLockerRobot = new PrimitiveLockerRobot(lockerRepo);
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(lockerRepo);
         Bag bagStore = new Bag(1);
         
         Ticket ticket = smartLockerRobot.storeBagBySmartLockerRobot(bagStore);
-        Bag bagGet = primitiveLockerRobot.getBag(ticket);
+        Bag bagGet = primaryLockerRobot.getBag(ticket);
         
         Assertions.assertEquals(bagStore, bagGet);
     }
@@ -85,11 +85,11 @@ public class SmartRobotTest {
     public void should_return_bag_when_PrimitiveLockerRobot_store_bag_and_SmartLockerRobot_get_bag_given_valid_ticket() throws LockerException {
         List<Locker> lockers = Arrays.asList(new Locker(1, 10, 8), new Locker(2, 10, 10));
         LockerRepo lockerRepo = new LockerRepo(lockers);
-        PrimitiveLockerRobot primitiveLockerRobot = new PrimitiveLockerRobot(lockerRepo);
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(lockerRepo);
         SmartLockerRobot smartLockerRobot = new SmartLockerRobot(lockerRepo);
         Bag bagStore = new Bag(1);
         
-        Ticket ticket = primitiveLockerRobot.storeBagByPrimitiveLockerRobot(bagStore);
+        Ticket ticket = primaryLockerRobot.storeBagByPrimitiveLockerRobot(bagStore);
         Bag bagGet = smartLockerRobot.getBag(ticket);
         
         Assertions.assertEquals(bagStore, bagGet);

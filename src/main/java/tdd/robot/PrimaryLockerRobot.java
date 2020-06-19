@@ -5,11 +5,11 @@ import tdd.LockerRepo;
 import tdd.Ticket;
 import tdd.exception.LockerException;
 
-public class PrimitiveLockerRobot {
+public class PrimaryLockerRobot {
     
     private LockerRepo repo;
     
-    public PrimitiveLockerRobot(LockerRepo repo) {
+    public PrimaryLockerRobot(LockerRepo repo) {
         this.repo = repo;
     }
     
