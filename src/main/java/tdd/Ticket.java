@@ -8,7 +8,10 @@ public class Ticket {
     private int bagNumber;
     private int lockerNumber;
     private int robotNumber;
-    
+
+    public Ticket() {
+    }
+
     public Ticket(TicketTypes ticketType, int bagNumber, int lockerNumber) {
         this.ticketType = ticketType;
         this.bagNumber = bagNumber;

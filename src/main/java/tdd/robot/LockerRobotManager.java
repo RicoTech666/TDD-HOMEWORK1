@@ -23,7 +23,7 @@ public class LockerRobotManager extends LockerRobot {
     }
 
     @Override
-    public Ticket storeBag(Bag bag) throws LockerException {
+    public Ticket storeBag(Bag bag) {
         return repo.storeBagByLockerRobotManager(bag, this.managedLockerRobots);
     }
 }

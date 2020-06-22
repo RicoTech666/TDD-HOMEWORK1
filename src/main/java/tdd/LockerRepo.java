@@ -70,27 +70,37 @@ public class LockerRepo {
     }
 
     public Ticket storeBagByLockerRobotManager(Bag bag, List<LockerRobot> managedLockerRobots) {
-        Ticket tempTicket = null;
-        for (LockerRobot robot : managedLockerRobots) {
-            if (robot instanceof PrimaryLockerRobot) {
-                try {
-                    tempTicket = robot.getRepo().storeBagByPrimitiveLockerRobot(bag);
-                    tempTicket.setRobotNumber(managedLockerRobots.indexOf(robot));
-                } catch (LockerException e) {
-                }
-            } else if (robot instanceof SmartLockerRobot) {
-                try {
-                    tempTicket = robot.getRepo().storeBagBySmartLockerRobot(bag);
-                    tempTicket.setRobotNumber(managedLockerRobots.indexOf(robot));
-                } catch (LockerException e) {
+        Ticket tempTicket = new Ticket();
+        tempTicket.setRobotNumber(-1);
+        try {
+            return storeBagByPrimitiveLockerRobot(bag);
+        } catch (LockerException e) {
+            for (LockerRobot robot : managedLockerRobots) {
+                if (robot instanceof PrimaryLockerRobot) {
+                    try {
+                        tempTicket = robot.getRepo().storeBagByPrimitiveLockerRobot(bag);
+                        tempTicket.setRobotNumber(managedLockerRobots.indexOf(robot));
+                    } catch (LockerException ignored) {
+                    }
+                } else if (robot instanceof SmartLockerRobot) {
+                    try {
+                        tempTicket = robot.getRepo().storeBagBySmartLockerRobot(bag);
+                        tempTicket.setRobotNumber(managedLockerRobots.indexOf(robot));
+                    } catch (LockerException ignored) {
+                    }
                 }
             }
+            return tempTicket;
         }
-        return tempTicket;
     }
 
-    public Bag getBagByLockerRobotManager(Ticket ticket, List<LockerRobot> managedLockerRobots) {
-        int robotNumber = ticket.getRobotNumber();
-        return managedLockerRobots.get(robotNumber).getRepo().bagMap.get(ticket.getBagNumber());
+    public Bag getBagByLockerRobotManager(Ticket ticket, List<LockerRobot> managedLockerRobots) throws LockerException {
+        if (ticket.getRobotNumber() != -1) {
+            int robotNumber = ticket.getRobotNumber();
+            return managedLockerRobots.get(robotNumber).getRepo().bagMap.get(ticket.getBagNumber());
+        } else {
+            return getBag(ticket);
+        }
+
     }
 }
