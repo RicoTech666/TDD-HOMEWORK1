@@ -55,3 +55,8 @@
 存满，第二个未存满）
   When: LockerRobotManager存包
   Then: 返回ticket，成功存入SmartLockerRobot的第二个Locker
+
+- Given: LockerRobotManager管理一个Locker，且按顺序管理1个PrimaryLockerRobot（有一个Locker，存满）,1个SmartLockerRobot（有两个Locker，其中第一个
+未存满，第二个存满）
+  When: LockerRobotManager存包
+  Then: 返回ticket，成功存入SmartLockerRobot的第一个Locker  
