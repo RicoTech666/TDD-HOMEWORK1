@@ -17,7 +17,7 @@ public class SmartRobotTest {
         LockerRepo lockerRepo = new LockerRepo(lockers);
         SmartLockerRobot smartLockerRobot = new SmartLockerRobot(lockerRepo);
         Bag bag = new Bag(1);
-        Ticket ticket = smartLockerRobot.storeBagBySmartLockerRobot(bag);
+        Ticket ticket = smartLockerRobot.storeBag(bag);
         
         Assert.assertTrue(ticket.getBagNumber() == lockers.get(1).getBag(ticket).getId());
     }
@@ -28,7 +28,7 @@ public class SmartRobotTest {
         LockerRepo lockerRepo = new LockerRepo(lockers);
         SmartLockerRobot smartLockerRobot = new SmartLockerRobot(lockerRepo);
         Bag bag = new Bag(1);
-        Ticket ticket = smartLockerRobot.storeBagBySmartLockerRobot(bag);
+        Ticket ticket = smartLockerRobot.storeBag(bag);
         
         Assert.assertTrue(ticket.getBagNumber() == lockers.get(0).getBag(ticket).getId());
     }
@@ -41,7 +41,7 @@ public class SmartRobotTest {
         Bag bag = new Bag(1);
         
         Assertions.assertThrows(LockerException.class, () -> {
-            smartLockerRobot.storeBagBySmartLockerRobot(bag);
+            smartLockerRobot.storeBag(bag);
         });
     }
     
@@ -51,7 +51,7 @@ public class SmartRobotTest {
         LockerRepo lockerRepo = new LockerRepo(lockers);
         SmartLockerRobot smartLockerRobot = new SmartLockerRobot(lockerRepo);
         Bag bag = new Bag(1);
-        Ticket ticket = smartLockerRobot.storeBagBySmartLockerRobot(bag);
+        Ticket ticket = smartLockerRobot.storeBag(bag);
         
         Assertions.assertTrue(bag.getId() == lockerRepo.getBag(ticket).getId());
     }
@@ -75,7 +75,7 @@ public class SmartRobotTest {
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(lockerRepo);
         Bag bagStore = new Bag(1);
         
-        Ticket ticket = smartLockerRobot.storeBagBySmartLockerRobot(bagStore);
+        Ticket ticket = smartLockerRobot.storeBag(bagStore);
         Bag bagGet = primaryLockerRobot.getBag(ticket);
         
         Assertions.assertEquals(bagStore, bagGet);
@@ -89,7 +89,7 @@ public class SmartRobotTest {
         SmartLockerRobot smartLockerRobot = new SmartLockerRobot(lockerRepo);
         Bag bagStore = new Bag(1);
         
-        Ticket ticket = primaryLockerRobot.storeBagByPrimitiveLockerRobot(bagStore);
+        Ticket ticket = primaryLockerRobot.storeBag(bagStore);
         Bag bagGet = smartLockerRobot.getBag(ticket);
         
         Assertions.assertEquals(bagStore, bagGet);

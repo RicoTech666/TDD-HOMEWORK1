@@ -15,7 +15,7 @@ public class PrimaryRobotTest {
         LockerRepo lockerRepo = new LockerRepo(lockers);
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(lockerRepo);
         Bag bag = new Bag(1);
-        Ticket ticket = primaryLockerRobot.storeBagByPrimitiveLockerRobot(bag);
+        Ticket ticket = primaryLockerRobot.storeBag(bag);
         
         Assert.assertTrue(ticket.getBagNumber() == lockerRepo.getBag(ticket).getId());
     }
@@ -26,7 +26,7 @@ public class PrimaryRobotTest {
         LockerRepo lockerRepo = new LockerRepo(lockers);
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(lockerRepo);
         Bag bag = new Bag(2);
-        Ticket ticket = primaryLockerRobot.storeBagByPrimitiveLockerRobot(bag);
+        Ticket ticket = primaryLockerRobot.storeBag(bag);
         
         Assert.assertTrue(ticket.getBagNumber() == lockerRepo.getBag(ticket).getId());
     }
@@ -39,7 +39,7 @@ public class PrimaryRobotTest {
         Bag bag = new Bag(3);
         
         Assert.assertThrows(LockerException.class, () -> {
-            primaryLockerRobot.storeBagByPrimitiveLockerRobot(bag);
+            primaryLockerRobot.storeBag(bag);
         });
     }
     
@@ -49,7 +49,7 @@ public class PrimaryRobotTest {
         LockerRepo lockerRepo = new LockerRepo(lockers);
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(lockerRepo);
         Bag bag = new Bag(4);
-        Ticket ticket = primaryLockerRobot.storeBagByPrimitiveLockerRobot(bag);
+        Ticket ticket = primaryLockerRobot.storeBag(bag);
         
         Assert.assertNotNull(primaryLockerRobot.getBag(ticket));
     }

@@ -2,6 +2,9 @@ package tdd;
 
 import lombok.Data;
 import tdd.exception.LockerException;
+import tdd.robot.LockerRobot;
+import tdd.robot.PrimaryLockerRobot;
+import tdd.robot.SmartLockerRobot;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,14 +15,14 @@ import java.util.Map;
  */
 @Data
 public class LockerRepo {
-    
+
     private List<Locker> lockers;
     private Map<Integer, Bag> bagMap = new HashMap<>();
-    
+
     public LockerRepo(List<Locker> lockers) {
         this.lockers = lockers;
     }
-    
+
     private Locker getPrimitiveLockerRobotLocker() throws LockerException {
         for (Locker locker : lockers) {
             if (locker.hasEmptyCapacity()) {
@@ -28,30 +31,7 @@ public class LockerRepo {
         }
         throw new LockerException("存包失败，所有储物柜已满");
     }
-    
-    
-    public Bag getBag(Ticket ticket) throws LockerException {
-        TicketTypes ticketTypes = ticket.getTicketType();
-        if (ticketTypes.equals(TicketTypes.FORGED_TICKET)) {
-            throw new LockerException("该票为伪造，无效");
-        }
-        return this.bagMap.get(ticket.getBagNumber());
-    }
-    
-    public Ticket storeBagByPrimitiveLockerRobot(Bag bag) throws LockerException {
-        Locker locker = this.getPrimitiveLockerRobotLocker();
-        locker.store(bag);
-        this.bagMap.put(bag.getId(), bag);
-        return new Ticket(TicketTypes.VALID_TICKET, bag.getId(), locker.getId());
-    }
-    
-    public Ticket storeBagBySmartLockerRobot(Bag bag) throws LockerException {
-        Locker locker = this.getSmartLockerRobotLocker();
-        locker.store(bag);
-        this.bagMap.put(bag.getId(), bag);
-        return new Ticket(TicketTypes.VALID_TICKET, bag.getId(), locker.getId());
-    }
-    
+
     private Locker getSmartLockerRobotLocker() throws LockerException {
         int lockerFlag = 0;
         Locker targetLocker = null;
@@ -65,5 +45,52 @@ public class LockerRepo {
             return targetLocker;
         }
         throw new LockerException("存包失败，所有储物柜已满");
+    }
+
+    public Bag getBag(Ticket ticket) throws LockerException {
+        TicketTypes ticketTypes = ticket.getTicketType();
+        if (ticketTypes.equals(TicketTypes.FORGED_TICKET)) {
+            throw new LockerException("该票为伪造，无效");
+        }
+        return this.bagMap.get(ticket.getBagNumber());
+    }
+
+    public Ticket storeBagByPrimitiveLockerRobot(Bag bag) throws LockerException {
+        Locker locker = this.getPrimitiveLockerRobotLocker();
+        locker.store(bag);
+        this.bagMap.put(bag.getId(), bag);
+        return new Ticket(TicketTypes.VALID_TICKET, bag.getId(), locker.getId());
+    }
+
+    public Ticket storeBagBySmartLockerRobot(Bag bag) throws LockerException {
+        Locker locker = this.getSmartLockerRobotLocker();
+        locker.store(bag);
+        this.bagMap.put(bag.getId(), bag);
+        return new Ticket(TicketTypes.VALID_TICKET, bag.getId(), locker.getId());
+    }
+
+    public Ticket storeBagByLockerRobotManager(Bag bag, List<LockerRobot> managedLockerRobots) {
+        Ticket tempTicket = null;
+        for (LockerRobot robot : managedLockerRobots) {
+            if (robot instanceof PrimaryLockerRobot) {
+                try {
+                    tempTicket = robot.getRepo().storeBagByPrimitiveLockerRobot(bag);
+                    tempTicket.setRobotNumber(managedLockerRobots.indexOf(robot));
+                } catch (LockerException e) {
+                }
+            } else if (robot instanceof SmartLockerRobot) {
+                try {
+                    tempTicket = robot.getRepo().storeBagBySmartLockerRobot(bag);
+                    tempTicket.setRobotNumber(managedLockerRobots.indexOf(robot));
+                } catch (LockerException e) {
+                }
+            }
+        }
+        return tempTicket;
+    }
+
+    public Bag getBagByLockerRobotManager(Ticket ticket, List<LockerRobot> managedLockerRobots) {
+        int robotNumber = ticket.getRobotNumber();
+        return managedLockerRobots.get(robotNumber).getRepo().bagMap.get(ticket.getBagNumber());
     }
 }

@@ -5,14 +5,9 @@ import tdd.LockerRepo;
 import tdd.Ticket;
 import tdd.exception.LockerException;
 
-public class SmartLockerRobot extends LockerRobot {
-    private LockerRepo repo;
-    
-    public SmartLockerRobot(LockerRepo repo) {
-        this.repo = repo;
-    }
+public class LockerRobot {
+    LockerRepo repo;
 
-    @Override
     public LockerRepo getRepo() {
         return repo;
     }
@@ -21,8 +16,7 @@ public class SmartLockerRobot extends LockerRobot {
         return repo.getBag(ticket);
     }
 
-    @Override
     public Ticket storeBag(Bag bag) throws LockerException {
-        return repo.storeBagBySmartLockerRobot(bag);
+        return null;
     }
 }
