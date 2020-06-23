@@ -1,5 +1,6 @@
 package tdd;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import tdd.exception.LockerException;
@@ -140,4 +141,16 @@ public class LockerRobotManagerTest {
         Assertions.assertEquals(bagStore, bagGet);
     }
 
+    @Test
+    public void should_get_bag_when_LockerRobotManager_fetch_bag_given_LockerRobotManager_has_locker_with_capacity_and_has_no_robot() throws LockerException {
+        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 10, 8));
+        LockerRepo lockerRobotManagerEmptyRepo = new LockerRepo(lockerRobotManagerLockers);
+
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(lockerRobotManagerEmptyRepo);
+        Bag bagStore = new Bag(2);
+
+        Ticket ticket = lockerRobotManager.storeBag(bagStore);
+
+        Assertions.assertEquals(bagStore.getId(), lockerRobotManager.getBag(ticket).getId());
+    }
 }

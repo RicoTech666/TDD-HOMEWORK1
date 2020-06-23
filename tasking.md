@@ -76,6 +76,10 @@
   When: LockerRobotManager存包
   Then: 返回ticket，成功存入PrimaryLockerRobot的第一个Locker   
   
-  - Given: LockerRobotManager管理Locker(未存满)，且未管理任何robot
-    When: LockerRobotManager存包
-    Then: 返回ticket，成功存入LockerRobotManager的第一个Locker 
+- Given: LockerRobotManager管理Locker(未存满)，且未管理任何robot
+  When: LockerRobotManager存包
+  Then: 返回ticket，成功存入LockerRobotManager的第一个Locker 
+  
+- Given: LockerRobotManager管理Locker(存满)，且未管理任何robot，有效票
+  When: LockerRobotManager取包
+  Then: 取包成功，成功取出原有包
