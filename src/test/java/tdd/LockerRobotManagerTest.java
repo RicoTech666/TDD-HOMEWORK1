@@ -103,4 +103,26 @@ public class LockerRobotManagerTest {
 
         Assertions.assertEquals(bagStore, bagGet);
     }
+
+    @Test
+    public void should_return_ticket_when_LockerRobotManager_store_bag_given_LockerRobotManager_has_no_locker_with_capacity_and_one_primaryLockerRobot_has_one_locker_with_capacity_and_one_smartLockerRobot_has_two_lockers_with_1st_has_capacity_2nd_has_no_capacity() throws LockerException {
+        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 10, 8));
+        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 11, 10), new Locker(2, 10, 10));
+        LockerRepo primaryLockerRobotLockerRepo = new LockerRepo(primaryLockerRobotLockers);
+        LockerRepo smartLockerRobotLockerRepo = new LockerRepo(smartLockerRobotLockers);
+        LockerRepo lockerRobotManagerEmptyRepo = new LockerRepo();
+
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(primaryLockerRobotLockerRepo);
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot(smartLockerRobotLockerRepo);
+
+        List<LockerRobot> managedLockerRobots = Arrays.asList(primaryLockerRobot, smartLockerRobot);
+
+        LockerRobotManager lockerRobotManager = new LockerRobotManager(managedLockerRobots, lockerRobotManagerEmptyRepo);
+        Bag bagStore = new Bag(2);
+
+        Ticket ticket = lockerRobotManager.storeBag(bagStore);
+        Bag bagGet = lockerRobotManager.getBag(ticket);
+
+        Assertions.assertEquals(bagStore, bagGet);
+    }
 }

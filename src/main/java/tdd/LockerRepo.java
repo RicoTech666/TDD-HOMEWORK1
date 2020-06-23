@@ -23,6 +23,9 @@ public class LockerRepo {
         this.lockers = lockers;
     }
 
+    public LockerRepo() {
+    }
+
     private Locker getPrimitiveLockerRobotLocker() throws LockerException {
         for (Locker locker : lockers) {
             if (locker.hasEmptyCapacity()) {
@@ -73,6 +76,9 @@ public class LockerRepo {
         Ticket tempTicket = new Ticket();
         tempTicket.setRobotNumber(-1);
         try {
+            if(this.lockers == null) {
+                throw new LockerException();
+            }
             return storeBagByPrimitiveLockerRobot(bag);
         } catch (LockerException e) {
             for (LockerRobot robot : managedLockerRobots) {

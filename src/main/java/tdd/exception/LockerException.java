@@ -9,4 +9,8 @@ public class LockerException extends Exception {
     public LockerException(String message) {
         super(message);
     }
+
+    public LockerException() {
+
+    }
 }
