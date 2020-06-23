@@ -75,3 +75,7 @@
 未存满，第二个存满）
   When: LockerRobotManager存包
   Then: 返回ticket，成功存入PrimaryLockerRobot的第一个Locker   
+  
+  - Given: LockerRobotManager管理Locker(未存满)，且未管理任何robot
+    When: LockerRobotManager存包
+    Then: 返回ticket，成功存入LockerRobotManager的第一个Locker 

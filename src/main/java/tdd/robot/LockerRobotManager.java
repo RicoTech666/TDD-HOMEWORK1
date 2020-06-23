@@ -17,6 +17,10 @@ public class LockerRobotManager extends LockerRobot {
         this.repo = repo;
     }
 
+    public LockerRobotManager(LockerRepo repo) {
+        this.repo = repo;
+    }
+
     @Override
     public Bag getBag(Ticket ticket) throws LockerException {
         return repo.getBagByLockerRobotManager(ticket, this.managedLockerRobots);

@@ -76,7 +76,7 @@ public class LockerRepo {
         Ticket tempTicket = new Ticket();
         tempTicket.setRobotNumber(-1);
         try {
-            if(this.lockers == null) {
+            if (this.lockers == null) {
                 throw new LockerException();
             }
             return storeBagByPrimitiveLockerRobot(bag);
@@ -101,7 +101,7 @@ public class LockerRepo {
     }
 
     public Bag getBagByLockerRobotManager(Ticket ticket, List<LockerRobot> managedLockerRobots) throws LockerException {
-        if (ticket.getRobotNumber() != -1) {
+        if (ticket.getRobotNumber() != -1 && managedLockerRobots != null) {
             int robotNumber = ticket.getRobotNumber();
             return managedLockerRobots.get(robotNumber).getRepo().bagMap.get(ticket.getBagNumber());
         } else {
