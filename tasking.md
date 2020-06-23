@@ -93,3 +93,8 @@
 未存满，第二个存满），有效票
   When: LockerRobotManager取包
   Then: 取包成功，成功取出原有包
+  
+- Given: LockerRobotManager管理一个Locker，且按顺序管理1个PrimaryLockerRobot（有一个Locker，未存满）,1个SmartLockerRobot（有两个Locker，其中第一个
+未存满，第二个存满）,有效票
+  When: LockerRobotManager取包
+  Then: 取包成功，成功取出原有包
