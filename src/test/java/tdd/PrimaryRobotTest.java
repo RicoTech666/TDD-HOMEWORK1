@@ -11,7 +11,7 @@ import java.util.List;
 public class PrimaryRobotTest {
     @Test
     public void should_return_ticket_when_robot_store_package_given_two_locker_have_capacity() throws LockerException {
-        List<Locker> lockers = Arrays.asList(new Locker(1, 10, 5), new Locker(2, 8, 0));
+        List<Locker> lockers = Arrays.asList(new Locker(1, 10), new Locker(2, 8));
         LockerRepo lockerRepo = new LockerRepo(lockers);
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(lockerRepo);
         Bag bag = new Bag(1);
@@ -22,7 +22,7 @@ public class PrimaryRobotTest {
     
     @Test
     public void should_return_ticket_when_robot_store_package_given_one_locker_full_and_one_locker_have_capacity() throws LockerException {
-        List<Locker> lockers = Arrays.asList(new Locker(1, 10, 10), new Locker(2, 8, 0));
+        List<Locker> lockers = Arrays.asList(new Locker(1, 10), new Locker(2, 8));
         LockerRepo lockerRepo = new LockerRepo(lockers);
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(lockerRepo);
         Bag bag = new Bag(2);
@@ -33,7 +33,7 @@ public class PrimaryRobotTest {
     
     @Test
     public void should_throw_exception_when_robot_store_package_given_two_lockers_both_have_no_capacity() {
-        List<Locker> lockers = Arrays.asList(new Locker(1, 10, 10), new Locker(2, 8, 8));
+        List<Locker> lockers = Arrays.asList(new Locker(1, 0), new Locker(2, 0));
         LockerRepo lockerRepo = new LockerRepo(lockers);
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(lockerRepo);
         Bag bag = new Bag(3);
@@ -45,7 +45,7 @@ public class PrimaryRobotTest {
     
     @Test
     public void should_return_bag_when_robot_get_package_given_valid_ticket() throws LockerException {
-        List<Locker> lockers = Arrays.asList(new Locker(1, 10, 10), new Locker(2, 8, 0));
+        List<Locker> lockers = Arrays.asList(new Locker(1, 10), new Locker(2, 8));
         LockerRepo lockerRepo = new LockerRepo(lockers);
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(lockerRepo);
         Bag bag = new Bag(4);
@@ -56,7 +56,7 @@ public class PrimaryRobotTest {
     
     @Test
     public void should_throw_exception_when_robot_get_package_given_forged_ticket() {
-        List<Locker> lockers = Arrays.asList(new Locker(1, 10, 0), new Locker(2, 8, 0));
+        List<Locker> lockers = Arrays.asList(new Locker(1, 10), new Locker(2, 8));
         LockerRepo lockerRepo = new LockerRepo(lockers);
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot(lockerRepo);
         Ticket ticket = new Ticket(TicketTypes.FORGED_TICKET, 1, 8);

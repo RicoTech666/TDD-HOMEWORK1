@@ -14,9 +14,9 @@ import java.util.List;
 public class LockerRobotManagerTest {
     @Test
     public void should_return_ticket_when_LockerRobotManager_store_bag_given_one_primaryLockerRobot_has_one_locker_without_capacity_and_one_smartLockerRobot_has_two_lockers_with_1st_no_capacity_2nd_has_capacity() throws LockerException {
-        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 10, 10));
-        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 10, 10), new Locker(2, 10, 8));
-        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 10, 10));
+        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 0));
+        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 0), new Locker(2, 2));
+        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 0));
         LockerRepo primaryLockerRobotLockerRepo = new LockerRepo(primaryLockerRobotLockers);
         LockerRepo smartLockerRobotLockerRepo = new LockerRepo(smartLockerRobotLockers);
         LockerRepo lockerRobotManagerLockerRepo = new LockerRepo(lockerRobotManagerLockers);
@@ -37,9 +37,9 @@ public class LockerRobotManagerTest {
 
     @Test
     public void should_return_ticket_when_LockerRobotManager_store_bag_given_one_primaryLockerRobot_has_one_locker_without_capacity_and_one_smartLockerRobot_has_two_lockers_with_1st_has_capacity_2nd_has_no_capacity() throws LockerException {
-        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 10, 10));
-        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 11, 10), new Locker(2, 10, 10));
-        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 10, 10));
+        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 0));
+        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 1), new Locker(2, 0));
+        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 0));
         LockerRepo primaryLockerRobotLockerRepo = new LockerRepo(primaryLockerRobotLockers);
         LockerRepo smartLockerRobotLockerRepo = new LockerRepo(smartLockerRobotLockers);
         LockerRepo lockerRobotManagerLockerRepo = new LockerRepo(lockerRobotManagerLockers);
@@ -60,9 +60,9 @@ public class LockerRobotManagerTest {
 
     @Test
     public void should_return_ticket_when_LockerRobotManager_store_bag_given_one_primaryLockerRobot_has_one_locker_with_capacity_and_one_smartLockerRobot_has_two_lockers_with_1st_has_capacity_2nd_has_no_capacity() throws LockerException {
-        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 10, 10));
-        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 11, 10), new Locker(2, 10, 10));
-        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 10, 10));
+        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 0));
+        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 1), new Locker(2, 0));
+        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 0));
         LockerRepo primaryLockerRobotLockerRepo = new LockerRepo(primaryLockerRobotLockers);
         LockerRepo smartLockerRobotLockerRepo = new LockerRepo(smartLockerRobotLockers);
         LockerRepo lockerRobotManagerLockerRepo = new LockerRepo(lockerRobotManagerLockers);
@@ -83,9 +83,9 @@ public class LockerRobotManagerTest {
 
     @Test
     public void should_return_ticket_when_LockerRobotManager_store_bag_given_LockerRobotManager_has_one_locker_with_capacity_and_one_primaryLockerRobot_has_one_locker_with_capacity_and_one_smartLockerRobot_has_two_lockers_with_1st_has_capacity_2nd_has_no_capacity() throws LockerException {
-        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 10, 8));
-        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 11, 10), new Locker(2, 10, 10));
-        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 10, 10));
+        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 2));
+        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 1), new Locker(2, 0));
+        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 0));
         LockerRepo primaryLockerRobotLockerRepo = new LockerRepo(primaryLockerRobotLockers);
         LockerRepo smartLockerRobotLockerRepo = new LockerRepo(smartLockerRobotLockers);
         LockerRepo lockerRobotManagerLockerRepo = new LockerRepo(lockerRobotManagerLockers);
@@ -106,8 +106,8 @@ public class LockerRobotManagerTest {
 
     @Test
     public void should_return_ticket_when_LockerRobotManager_store_bag_given_LockerRobotManager_has_no_locker_and_one_primaryLockerRobot_has_one_locker_with_capacity_and_one_smartLockerRobot_has_two_lockers_with_1st_has_capacity_2nd_has_no_capacity() throws LockerException {
-        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 10, 8));
-        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 11, 10), new Locker(2, 10, 10));
+        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 108));
+        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 11), new Locker(2, 0));
         LockerRepo primaryLockerRobotLockerRepo = new LockerRepo(primaryLockerRobotLockers);
         LockerRepo smartLockerRobotLockerRepo = new LockerRepo(smartLockerRobotLockers);
         LockerRepo lockerRobotManagerEmptyRepo = new LockerRepo();
@@ -128,7 +128,7 @@ public class LockerRobotManagerTest {
 
     @Test
     public void should_return_ticket_when_LockerRobotManager_store_bag_given_LockerRobotManager_has_locker_with_capacity_and_has_no_robot() throws LockerException {
-        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 10, 8));
+        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 108));
         LockerRepo lockerRobotManagerEmptyRepo = new LockerRepo(lockerRobotManagerLockers);
 
         LockerRobotManager lockerRobotManager = new LockerRobotManager(lockerRobotManagerEmptyRepo);
@@ -142,7 +142,7 @@ public class LockerRobotManagerTest {
 
     @Test
     public void should_get_bag_when_LockerRobotManager_fetch_bag_given_LockerRobotManager_has_locker_with_capacity_and_has_no_robot() throws LockerException {
-        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 10, 8));
+        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 108));
         LockerRepo lockerRobotManagerEmptyRepo = new LockerRepo(lockerRobotManagerLockers);
 
         LockerRobotManager lockerRobotManager = new LockerRobotManager(lockerRobotManagerEmptyRepo);
@@ -155,8 +155,8 @@ public class LockerRobotManagerTest {
 
     @Test
     public void should_get_bag_when_LockerRobotManager_fetch_bag_given_LockerRobotManager_has_no_locker_and_one_primaryLockerRobot_has_one_locker_with_capacity_and_one_smartLockerRobot_has_two_lockers_with_1st_has_capacity_2nd_has_no_capacity_with_valid_ticket() throws LockerException {
-        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 10, 8));
-        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 11, 10), new Locker(2, 10, 10));
+        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 18));
+        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 11), new Locker(2, 0));
         LockerRepo primaryLockerRobotLockerRepo = new LockerRepo(primaryLockerRobotLockers);
         LockerRepo smartLockerRobotLockerRepo = new LockerRepo(smartLockerRobotLockers);
         LockerRepo lockerRobotManagerEmptyRepo = new LockerRepo();
@@ -176,9 +176,9 @@ public class LockerRobotManagerTest {
 
     @Test
     public void should_get_bag_when_LockerRobotManager_fetch_bag_given_LockerRobotManager_has_one_locker_with_capacity_and_one_primaryLockerRobot_has_one_locker_with_capacity_and_one_smartLockerRobot_has_two_lockers_with_1st_has_capacity_2nd_has_no_capacity_with_valid_ticket() throws LockerException {
-        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 10, 8));
-        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 11, 10), new Locker(2, 10, 10));
-        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 10, 10));
+        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 108));
+        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 11), new Locker(2, 0));
+        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 0));
         LockerRepo primaryLockerRobotLockerRepo = new LockerRepo(primaryLockerRobotLockers);
         LockerRepo smartLockerRobotLockerRepo = new LockerRepo(smartLockerRobotLockers);
         LockerRepo lockerRobotManagerLockerRepo = new LockerRepo(lockerRobotManagerLockers);
@@ -198,9 +198,9 @@ public class LockerRobotManagerTest {
 
     @Test
     public void should_get_bag_when_LockerRobotManager_fetch_bag_given_one_primaryLockerRobot_has_one_locker_with_capacity_and_one_smartLockerRobot_has_two_lockers_with_1st_has_capacity_2nd_has_no_capacity_with_valid_ticket() throws LockerException {
-        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 10, 10));
-        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 11, 10), new Locker(2, 10, 10));
-        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 10, 10));
+        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 0));
+        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 1), new Locker(2, 0));
+        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 0));
         LockerRepo primaryLockerRobotLockerRepo = new LockerRepo(primaryLockerRobotLockers);
         LockerRepo smartLockerRobotLockerRepo = new LockerRepo(smartLockerRobotLockers);
         LockerRepo lockerRobotManagerLockerRepo = new LockerRepo(lockerRobotManagerLockers);
@@ -221,9 +221,9 @@ public class LockerRobotManagerTest {
 
     @Test
     public void should_get_ticket_when_LockerRobotManager_fetch_bag_given_one_primaryLockerRobot_has_one_locker_without_capacity_and_one_smartLockerRobot_has_two_lockers_with_1st_has_capacity_2nd_has_no_capacity_with_valid_ticket() throws LockerException {
-        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 10, 10));
-        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 11, 10), new Locker(2, 10, 10));
-        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 10, 10));
+        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 0));
+        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 11), new Locker(2, 0));
+        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 0));
         LockerRepo primaryLockerRobotLockerRepo = new LockerRepo(primaryLockerRobotLockers);
         LockerRepo smartLockerRobotLockerRepo = new LockerRepo(smartLockerRobotLockers);
         LockerRepo lockerRobotManagerLockerRepo = new LockerRepo(lockerRobotManagerLockers);
@@ -243,9 +243,9 @@ public class LockerRobotManagerTest {
 
     @Test
     public void should_get_bag_when_LockerRobotManager_fetch_bag_given_one_primaryLockerRobot_has_one_locker_without_capacity_and_one_smartLockerRobot_has_two_lockers_with_1st_no_capacity_2nd_has_capacity_with_valid_ticket() throws LockerException {
-        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 10, 10));
-        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 10, 10), new Locker(2, 10, 8));
-        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 10, 10));
+        List<Locker> primaryLockerRobotLockers = Arrays.asList(new Locker(1, 0));
+        List<Locker> smartLockerRobotLockers = Arrays.asList(new Locker(1, 0), new Locker(2, 10));
+        List<Locker> lockerRobotManagerLockers = Arrays.asList(new Locker(1, 0));
         LockerRepo primaryLockerRobotLockerRepo = new LockerRepo(primaryLockerRobotLockers);
         LockerRepo smartLockerRobotLockerRepo = new LockerRepo(smartLockerRobotLockers);
         LockerRepo lockerRobotManagerLockerRepo = new LockerRepo(lockerRobotManagerLockers);

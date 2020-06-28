@@ -10,23 +10,21 @@ import java.util.Map;
 public class Locker {
     private int id;
     private int capacity;
-    private int currentUsedCapacity;
-    private Map<Integer, Bag> bagMap = new HashMap();
+    private Map<Integer, Bag> bagMap = new HashMap<>();
     
-    public Locker(int id, int capacity, int currentUsedCapacity) {
+    public Locker(int id, int capacity) {
         this.id = id;
         this.capacity = capacity;
-        this.currentUsedCapacity = currentUsedCapacity;
     }
     
     boolean hasEmptyCapacity() {
-        return capacity > currentUsedCapacity;
+        return capacity > bagMap.size();
     }
     
-    public boolean store(Bag bag) throws LockerException {
+    public Ticket store(Bag bag) throws LockerException {
         if (hasEmptyCapacity()) {
-            bagMap.put(bag.getId(), bag);
-            return true;
+            this.bagMap.put(bag.getId(), bag);
+            return new Ticket(TicketTypes.VALID_TICKET, bag.getId(), id);
         } else throw new LockerException("存包失败 提示储物柜已满");
     }
     
@@ -42,6 +40,10 @@ public class Locker {
     }
     
     public Bag getBag(Ticket ticket) throws LockerException {
-        return checkTicket(ticket) ? bagMap.get(ticket.getBagNumber()) : null;
+        return checkTicket(ticket) ? this.bagMap.get(ticket.getBagNumber()) : null;
+    }
+    
+    public int getCurrentUsedCapacity() {
+        return bagMap.size();
     }
 }

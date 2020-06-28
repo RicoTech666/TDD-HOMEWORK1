@@ -15,17 +15,18 @@ import java.util.Map;
  */
 @Data
 public class LockerRepo {
-
+    
     private List<Locker> lockers;
-    private Map<Integer, Bag> bagMap = new HashMap<>();
-
+    
     public LockerRepo(List<Locker> lockers) {
         this.lockers = lockers;
     }
-
+    
+    private Map<Integer, Bag> bagMap = new HashMap<>();
+    
     public LockerRepo() {
     }
-
+    
     private Locker getPrimitiveLockerRobotLocker() throws LockerException {
         for (Locker locker : lockers) {
             if (locker.hasEmptyCapacity()) {
@@ -34,7 +35,7 @@ public class LockerRepo {
         }
         throw new LockerException("存包失败，所有储物柜已满");
     }
-
+    
     private Locker getSmartLockerRobotLocker() throws LockerException {
         int lockerFlag = 0;
         Locker targetLocker = null;
@@ -49,7 +50,7 @@ public class LockerRepo {
         }
         throw new LockerException("存包失败，所有储物柜已满");
     }
-
+    
     public Bag getBag(Ticket ticket) throws LockerException {
         TicketTypes ticketTypes = ticket.getTicketType();
         if (ticketTypes.equals(TicketTypes.FORGED_TICKET)) {
@@ -57,21 +58,19 @@ public class LockerRepo {
         }
         return this.bagMap.get(ticket.getBagNumber());
     }
-
+    
     public Ticket storeBagByPrimitiveLockerRobot(Bag bag) throws LockerException {
         Locker locker = this.getPrimitiveLockerRobotLocker();
-        locker.store(bag);
         this.bagMap.put(bag.getId(), bag);
-        return new Ticket(TicketTypes.VALID_TICKET, bag.getId(), locker.getId());
+        return locker.store(bag);
     }
-
+    
     public Ticket storeBagBySmartLockerRobot(Bag bag) throws LockerException {
         Locker locker = this.getSmartLockerRobotLocker();
-        locker.store(bag);
         this.bagMap.put(bag.getId(), bag);
-        return new Ticket(TicketTypes.VALID_TICKET, bag.getId(), locker.getId());
+        return locker.store(bag);
     }
-
+    
     public Ticket storeBagByLockerRobotManager(Bag bag, List<LockerRobot> managedLockerRobots) {
         Ticket tempTicket = new Ticket();
         tempTicket.setRobotNumber(-1);
@@ -79,6 +78,7 @@ public class LockerRepo {
             if (this.lockers == null) {
                 throw new LockerException();
             }
+            this.bagMap.put(bag.getId(), bag);
             return storeBagByPrimitiveLockerRobot(bag);
         } catch (LockerException e) {
             for (LockerRobot robot : managedLockerRobots) {
@@ -99,14 +99,15 @@ public class LockerRepo {
             return tempTicket;
         }
     }
-
+    
     public Bag getBagByLockerRobotManager(Ticket ticket, List<LockerRobot> managedLockerRobots) throws LockerException {
         if (ticket.getRobotNumber() != -1 && managedLockerRobots != null) {
             int robotNumber = ticket.getRobotNumber();
-            return managedLockerRobots.get(robotNumber).getRepo().bagMap.get(ticket.getBagNumber());
+            Map<Integer, Bag> bagMap = managedLockerRobots.get(robotNumber).getRepo().getBagMap();
+            return bagMap.get(ticket.getBagNumber());
         } else {
             return getBag(ticket);
         }
-
+        
     }
 }

@@ -17,6 +17,7 @@ public class SmartLockerRobot extends LockerRobot {
         return repo;
     }
 
+    @Override
     public Bag getBag(Ticket ticket) throws LockerException {
         return repo.getBag(ticket);
     }
